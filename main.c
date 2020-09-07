@@ -121,31 +121,58 @@ void print_bombs(mine_t **map, int rows, int colums){
     
 }
 
+void print_count(mine_t **map, int rows, int colums){
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < colums; j++)
+        {
+            printf("[%d]", map[i][j].count);
+        }
+        printf("\n");
+    }
+    
+}
+
 /*
 * Count how many bombs surround bomb map[x][y]
 */
-check_nearby(mine_t **map, int rows, int colums, int x, int y){
+void check_nearby(mine_t **map, int rows, int colums, int x, int y){
     //check left
+    mine_t *current = &map[x][y];
     if(x - 1 >= 0){ //if left exist..
-        //up
+        if(y - 1 >= 0){//check upper left corner
+            current->count += map[x-1][y-1].bomb;
+        }
 
-        //middle always exist
+        //middle left exists
+        current->count += map[x-1][y].bomb;
 
-        //down
+        //check lower left
+        if(y + 1 < rows){
+            current->count += map[x-1][y+1].bomb;
+        }
     }
 
     if(x + 1 < colums){ //if right exist..
+        if(y - 1 >= 0){ //check upper right
+            current->count += map[x+1][y-1].bomb;
+        }
 
+        //middle right exists
+        current->count += map[x+1][y].bomb;
+
+        if(y + 1 < rows){ //check lower right
+            current->count += map[x+1][y + 1].bomb;
+        }
     }
 
 
     if(y - 1 >= 0){ //if up exist...
-
+        current->count += map[y-1][x].bomb;
     }
 
-
-    if(y + 1 < rows){ //if up exist...
-
+    if(y + 1 < rows){ //if down exist...
+        current->count += map[y+1][x].bomb;
     }
 
 }
@@ -167,8 +194,11 @@ int main(){
 
     mine_t **map = new_map(x,y);
 
-    map_bombs(map, x, y, 5, 5, 99);
+    map_bombs(map, y, x, 5, 5, 99);
+    map_nearby_bombs(map, y, x);
 
 
     print_bombs(map, x, y);
+    printf("\n");
+    print_count(map, x, y);
 }
