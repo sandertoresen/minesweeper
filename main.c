@@ -89,24 +89,15 @@ int map_bombs(mine_t **map, int rows, int colums, int safe_x, int safe_y, int bo
     //place all the bombs into the map
     
     int count = 0, i = 0;
-    while(count < bombs){ //add all bombs //TODO FIX
-        if(i > rows * colums){
+    while(count < bombs){ //add all bombs
+        if(i >= rows * colums){
             //somthing went wrong..
             return -1;
         }
-        placement[i] = 10;
 
+        //calculate the n'th positon in the matrix
         int colum = placement[i] % (colums);
-        int row = (placement[i] - colum) / (colums - 1);
-        if(row > 0){
-            row--;
-        }
-        printf("colum :%d row: %d \n",colum, row);
-        
-
-        exit(1);
-
-
+        int row = (placement[i] - colum) / rows;
 
         i++;
 
@@ -138,6 +129,6 @@ int main(){
 
     mine_t **map = new_map(x,y);
 
-    map_bombs(map, x, y, 1, 1, 99);    
+    map_bombs(map, x, y, 5, 5, 99);    
     print_map_bombs(map, x, y);
 }
