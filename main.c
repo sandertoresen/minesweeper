@@ -1,4 +1,4 @@
-//#include <ncurses.h>
+#include <ncurses.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "mine.h"
@@ -134,7 +134,7 @@ void print_count(mine_t **map, int rows, int colums){
 }
 
 /*
-* Count how many bombs surround bomb map[x][y]
+* Count how many bombs surround the bomb map[x][y] -> map_nearby_bombs helper function
 */
 void check_nearby(mine_t **map, int rows, int colums, int x, int y){
     //check left
@@ -177,7 +177,9 @@ void check_nearby(mine_t **map, int rows, int colums, int x, int y){
 
 }
 
-
+/*
+* Count the bombs next to each bomb in the matrix.
+*/
 void map_nearby_bombs(mine_t **map, int rows, int colums){
     for (int i = 0; i < rows; i++)
     {
@@ -189,9 +191,19 @@ void map_nearby_bombs(mine_t **map, int rows, int colums){
     }
     
 }
+
 int main(){
+    initscr();//initialize ncurses screen
+
     srand(time(NULL));   //for random function
 
+        while(1){//TODO add user input
+            printf("%c",getch());
+        }
+        printf("end\n");
+
+    
+    /*
     mine_t **map = new_map(x,y);
 
     map_bombs(map, y, x, 5, 5, 99);
@@ -201,4 +213,21 @@ int main(){
     print_bombs(map, x, y);
     printf("\n");
     print_count(map, x, y);
+    */
 }
+/*
+int game_loop(){
+    while(1){
+        int c = getch();
+
+        switch (c)
+        {
+        case 1:
+             
+            break;
+        
+        default:
+            break;
+        }
+    }
+}*/
