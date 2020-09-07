@@ -59,8 +59,6 @@ int fill_map(mine_t *map, int x, int y, int bombs){
 //open bomb
 
 
-//print map
-
 /* 
 *  map bombs, 
 *  safe x,y is the position the player first opens 
@@ -111,7 +109,7 @@ int map_bombs(mine_t **map, int rows, int colums, int safe_x, int safe_y, int bo
     return 0;
 }
 
-void print_map_bombs(mine_t **map, int rows, int colums){
+void print_bombs(mine_t **map, int rows, int colums){
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < colums; j++)
@@ -123,12 +121,54 @@ void print_map_bombs(mine_t **map, int rows, int colums){
     
 }
 
+/*
+* Count how many bombs surround bomb map[x][y]
+*/
+check_nearby(mine_t **map, int rows, int colums, int x, int y){
+    //check left
+    if(x - 1 >= 0){ //if left exist..
+        //up
 
+        //middle always exist
+
+        //down
+    }
+
+    if(x + 1 < colums){ //if right exist..
+
+    }
+
+
+    if(y - 1 >= 0){ //if up exist...
+
+    }
+
+
+    if(y + 1 < rows){ //if up exist...
+
+    }
+
+}
+
+
+void map_nearby_bombs(mine_t **map, int rows, int colums){
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < colums; j++)
+        {
+            check_nearby(map, rows, colums, i, j);
+        }
+        
+    }
+    
+}
 int main(){
     srand(time(NULL));   //for random function
 
     mine_t **map = new_map(x,y);
 
-    map_bombs(map, x, y, 5, 5, 99);    
-    print_map_bombs(map, x, y);
+    map_bombs(map, x, y, 5, 5, 99);
+
+
+    print_bombs(map, x, y);
 }
